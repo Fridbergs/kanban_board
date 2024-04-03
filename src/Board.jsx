@@ -4,6 +4,10 @@ import Column from "./Column";
 import CardDetails from "./CardDetails";
 
 const Board = () => {
+  function generateId() {
+    return Math.random().toString(36).substr(2, 9);
+  }
+
   const [columns, setColumns] = useState(() => {
     try {
       const savedColumns = localStorage.getItem("kanbanColumns");
@@ -35,7 +39,7 @@ const Board = () => {
         if (column.name === columnName) {
           return {
             ...column,
-            cards: [...column.cards, { title, content }],
+            cards: [...column.cards, { id: generateId(), title, content }],
           };
         }
         return column;
