@@ -1,15 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AddCard from "./AddCard";
 import Column from "./Column";
 import CardDetails from "./CardDetails";
 
 const Board = () => {
-  const [columns, setColumns] = useState([
-    { name: "ToDoPage", cards: [] },
-    { name: "In Progress", cards: [] },
-    { name: "Done", cards: [] },
-    // Lägg till fler kolumner vid behov
-  ]);
+  const [columns, setColumns] = useState(() => {
+    try {
+      const savedColumns = localStorage.getItem("kanbanColumns");
+      return savedColumns ? JSON.parse(savedColumns) : getDefaultColumns();
+    } catch (error) {
+      console.error("Failed to load columns from localStorage:", error);
+      return getDefaultColumns();
+    }
+  });
+
+  function getDefaultColumns() {
+    return [
+      { name: "ToDoPage", cards: [] },
+      { name: "In Progress", cards: [] },
+      { name: "Done", cards: [] },
+      // Lägg till fler kolumner vid behov
+    ];
+  }
+
+  // Uppdatera localStorage när 'columns' ändras
+  useEffect(() => {
+    localStorage.setItem("kanbanColumns", JSON.stringify(columns));
+  }, [columns]);
 
   // Använd denna funktion för att lägga till ett kort i en specifik kolumn
   const addCard = (columnName, title, content) => {
