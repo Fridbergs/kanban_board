@@ -2,7 +2,9 @@ import React, { useState } from "react";
 
 const CardDetails = ({ card, show, onClose, onSave, columns }) => {
   const [cardContent, setCardContent] = useState(card.content || "");
-  const [selectedColumn, setSelectedColumn] = useState(card.column || "ToDo");
+  const [selectedColumn, setSelectedColumn] = useState(
+    card.column || "ToDoPage"
+  );
 
   if (!show) {
     return null;

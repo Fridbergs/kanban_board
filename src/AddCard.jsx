@@ -13,12 +13,6 @@ function AddCard({ addCard, columns }) {
   };
 
   const handleSaveCard = (cardContent, selectedColumn) => {
-    console.log(
-      "Saving card with content:",
-      cardContent,
-      "to column:",
-      selectedColumn
-    );
     addCard(selectedColumn, cardContent);
     handleCloseModal();
   };

@@ -5,7 +5,7 @@ import CardDetails from "./CardDetails";
 
 const Board = () => {
   const [columns, setColumns] = useState([
-    { name: "Todo", cards: [] },
+    { name: "ToDoPage", cards: [] },
     { name: "In Progress", cards: [] },
     { name: "Done", cards: [] },
     // Lägg till fler kolumner vid behov
