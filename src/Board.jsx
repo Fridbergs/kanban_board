@@ -12,13 +12,13 @@ const Board = () => {
   ]);
 
   // Använd denna funktion för att lägga till ett kort i en specifik kolumn
-  const addCard = (columnName, cardContent) => {
+  const addCard = (columnName, title, content) => {
     setColumns((prevColumns) =>
       prevColumns.map((column) => {
         if (column.name === columnName) {
           return {
             ...column,
-            cards: [...column.cards, { content: cardContent }],
+            cards: [...column.cards, { title, content }],
           };
         }
         return column;
@@ -30,7 +30,12 @@ const Board = () => {
     <div className="board">
       <AddCard addCard={addCard} columns={columns} />
       {columns.map((column, index) => (
-        <Column key={index} name={column.name} cards={column.cards} />
+        <Column
+          key={index}
+          name={column.name}
+          cards={column.cards}
+          addCard={addCard}
+        />
       ))}
     </div>
   );

@@ -12,8 +12,9 @@ function AddCard({ addCard, columns }) {
     setShowModal(false);
   };
 
-  const handleSaveCard = (cardContent, selectedColumn) => {
-    addCard(selectedColumn, cardContent);
+  const handleSaveCard = (card, selectedColumn) => {
+    const { title, content } = card;
+    addCard(selectedColumn, title, content);
     handleCloseModal();
   };
 

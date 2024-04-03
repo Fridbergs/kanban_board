@@ -2,9 +2,7 @@ import React from "react";
 import { useState } from "react";
 import CardDetails from "./CardDetails";
 
-function Column({ name, cards }) {
-  console.log("Rendering cards for column:", name, cards);
-
+function Column({ name, cards, addCard }) {
   const [showModal, setShowModal] = useState(false);
 
   const handleOpenModal = () => {
@@ -15,8 +13,9 @@ function Column({ name, cards }) {
     setShowModal(false);
   };
 
-  const handleSaveCard = (cardContent) => {
-    addCard(name, cardContent);
+  const handleSaveCard = (card, selectedColumn) => {
+    console.log("Saving card in column:", selectedColumn, "Card data:", card); // För felsökning
+    addCard(selectedColumn || name, card.title, card.content);
     setShowModal(false);
   };
 
@@ -25,7 +24,8 @@ function Column({ name, cards }) {
       <h2>{name}</h2>
       {cards.map((card, index) => (
         <div key={index} className="card">
-          {card.content}
+          <h3>{card.title}</h3> {/* Rendera titeln */}
+          <p>{card.content}</p> {/* Rendera innehållet */}
         </div>
       ))}
     </div>

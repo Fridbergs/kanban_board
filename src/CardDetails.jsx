@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 const CardDetails = ({ card, show, onClose, onSave, columns }) => {
   const [cardContent, setCardContent] = useState(card.content || "");
+  const [cardTitle, setCardTitle] = useState(card.title || "");
   const [selectedColumn, setSelectedColumn] = useState(
     card.column || "ToDoPage"
   );
@@ -12,7 +13,8 @@ const CardDetails = ({ card, show, onClose, onSave, columns }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave(cardContent, selectedColumn); // Skicka bara innehållet direkt
+    console.log("Saving card:", { title: cardTitle, content: cardContent });
+    onSave({ title: cardTitle, content: cardContent }, selectedColumn);
     onClose();
   };
 
@@ -21,7 +23,12 @@ const CardDetails = ({ card, show, onClose, onSave, columns }) => {
       <div className="modal">
         <h2>Kort Detaljer</h2>
         <form onSubmit={handleSubmit}>
-          <input className="cardTitle" placeholder="Skriv din rubrik här" />
+          <input
+            className="cardTitle"
+            value={cardTitle}
+            onChange={(e) => setCardTitle(e.target.value)}
+            placeholder="Skriv din rubrik här"
+          />
           <textarea
             className="cardContent"
             value={cardContent}
