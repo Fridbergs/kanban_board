@@ -1,3 +1,13 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app {
+  background-color: #d6b3b3;
+}
+
 .board {
   display: flex;
   flex-direction: row;
@@ -7,6 +17,19 @@
   height: 100%;
   padding: 0 1rem;
   gap: 1rem;
+}
+
+.homeLink {
+  display: flex;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  background-color: #d6b3b3;
+  padding: 0.5rem;
+  height: 10dvh;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .column {

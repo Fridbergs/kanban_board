@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import AddCard from "./AddCard";
 import Column from "./Column";
 
 const Board = () => {
+  const { columnName } = useParams();
   function generateId() {
     return Math.random().toString(36).substr(2, 9);
   }
@@ -16,6 +18,10 @@ const Board = () => {
       return getDefaultColumns();
     }
   });
+
+  const filteredColumns = columnName
+    ? columns.filter((column) => column.name === columnName)
+    : columns;
 
   function getDefaultColumns() {
     return [
@@ -63,7 +69,7 @@ const Board = () => {
   return (
     <div className="board">
       <AddCard addCard={addCard} columns={columns} />
-      {columns.map((column, index) => (
+      {filteredColumns.map((column, index) => (
         <Column
           key={index}
           name={column.name}
