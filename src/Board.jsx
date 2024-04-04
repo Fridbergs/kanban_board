@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import AddCard from "./AddCard";
 import Column from "./Column";
-import CardDetails from "./CardDetails";
 
 const Board = () => {
   function generateId() {
@@ -47,6 +46,20 @@ const Board = () => {
     );
   };
 
+  const handleRemoveCard = (cardId, columnName) => {
+    setColumns((prevColumns) =>
+      prevColumns.map((column) => {
+        if (column.name === columnName) {
+          return {
+            ...column,
+            cards: column.cards.filter((card) => card.id !== cardId),
+          };
+        }
+        return column;
+      })
+    );
+  };
+
   return (
     <div className="board">
       <AddCard addCard={addCard} columns={columns} />
@@ -56,6 +69,8 @@ const Board = () => {
           name={column.name}
           cards={column.cards}
           addCard={addCard}
+          setColumns={setColumns}
+          onRemoveCard={handleRemoveCard}
         />
       ))}
     </div>

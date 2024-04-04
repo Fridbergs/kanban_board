@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 
-function ReadViewModal({ card, onClose }) {
+function ReadViewModal({
+  card,
+  onClose,
+  onUpdate,
+  handleRemoveCard,
+  onRemoveCard,
+}) {
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(card.title);
   const [content, setContent] = useState(card.content);
@@ -10,8 +16,14 @@ function ReadViewModal({ card, onClose }) {
   };
 
   const handleSaveClick = () => {
+    const updatedCard = { id: card.id, title, content };
+    onUpdate(updatedCard);
     setIsEditing(false);
-    // Spara ändringar
+  };
+
+  const handleRemoveClick = () => {
+    onRemoveCard(card.id);
+    onClose(); // Stäng modalen efter att kortet har tagits bort
   };
 
   return (
@@ -31,6 +43,8 @@ function ReadViewModal({ card, onClose }) {
             <h2>{card.title}</h2>
             <p>{card.content}</p>
             <button onClick={handleEditClick}>Redigera</button>
+            <button onClick={handleRemoveClick}>Ta bort</button>{" "}
+            {/* Ny knapp för att ta bort kort */}
           </div>
         )}
         <button onClick={onClose}>Stäng</button>

@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 import ReadViewModal from "./ReadViewModal";
 
-function Column({ name, cards, addCard }) {
+function Column({
+  name,
+  cards,
+  addCard,
+  onUpdate,
+  handleRemoveCard,
+  setColumns,
+  columns,
+  onRemoveCard,
+}) {
   const [selectedCard, setSelectedCard] = useState(null);
   const [showCardModal, setShowCardModal] = useState(false);
 
@@ -14,6 +23,23 @@ function Column({ name, cards, addCard }) {
     setShowCardModal(false);
     setSelectedCard(null);
   };
+
+  function handleCardUpdate(updatedCard) {
+    console.log("Uppdaterat kort:", updatedCard);
+    setColumns((prevColumns) =>
+      prevColumns.map((column) => {
+        if (column.name === updatedCard.columnName) {
+          return {
+            ...column,
+            cards: column.cards.map((card) =>
+              card.id === updatedCard.id ? updatedCard : card
+            ),
+          };
+        }
+        return column;
+      })
+    );
+  }
 
   const handleSaveCard = (card, selectedColumn) => {
     console.log("Saving card in column:", selectedColumn, "Card data:", card);
@@ -35,7 +61,12 @@ function Column({ name, cards, addCard }) {
         </div>
       ))}
       {showCardModal && selectedCard && (
-        <ReadViewModal card={selectedCard} onClose={handleCloseModal} />
+        <ReadViewModal
+          card={selectedCard}
+          onClose={handleCloseModal}
+          onUpdate={handleCardUpdate}
+          onRemoveCard={(cardId) => onRemoveCard(cardId, name)}
+        />
       )}
     </div>
   );
