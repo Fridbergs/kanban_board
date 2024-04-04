@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ReadViewModal from "./ReadViewModal";
+import { Link } from "react-router-dom";
 
 function Column({
   name,
@@ -49,7 +50,9 @@ function Column({
 
   return (
     <div className="column">
-      <h2>{name}</h2>
+      <h2>
+        <Link to={`/${name}`}>{name}</Link>
+      </h2>
       {cards.map((card) => (
         <div
           key={card.id}
@@ -65,7 +68,7 @@ function Column({
           card={selectedCard}
           onClose={handleCloseModal}
           onUpdate={handleCardUpdate}
-          onRemoveCard={(cardId) => onRemoveCard(cardId, name)}
+          onRemoveCard={(cardId) => onRemove(cardId, name)}
         />
       )}
     </div>
