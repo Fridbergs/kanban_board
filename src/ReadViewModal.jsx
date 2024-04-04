@@ -30,7 +30,7 @@ function ReadViewModal({
     <div className="modal-backdrop">
       <div className="modal">
         {isEditing ? (
-          <div>
+          <div className="editDiv">
             <input value={title} onChange={(e) => setTitle(e.target.value)} />
             <textarea
               value={content}
@@ -42,12 +42,13 @@ function ReadViewModal({
           <div>
             <h2>{card.title}</h2>
             <p>{card.content}</p>
-            <button onClick={handleEditClick}>Redigera</button>
-            <button onClick={handleRemoveClick}>Ta bort</button>{" "}
-            {/* Ny knapp för att ta bort kort */}
+            <div className="buttons">
+              <button onClick={handleEditClick}>Redigera</button>
+              <button onClick={handleRemoveClick}>Ta bort</button>{" "}
+              <button onClick={onClose}>Stäng</button>
+            </div>
           </div>
         )}
-        <button onClick={onClose}>Stäng</button>
       </div>
     </div>
   );
