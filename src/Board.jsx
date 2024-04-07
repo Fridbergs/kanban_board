@@ -67,23 +67,29 @@ const Board = () => {
     );
   };
 
-  function handleCardUpdate(updatedCard, columnName) {
-    console.log("Uppdaterat kort:", updatedCard);
-    console.log("Kolumnnamn:", updatedCard.columnName);
-    setColumns((prevColumns) =>
-      prevColumns.map((column) => {
-        if (column.name === updatedCard.columnName) {
+  const handleCardUpdate = (updatedCard) => {
+    setColumns((prevColumns) => {
+      // Ta bort kortet från dess nuvarande kolumn
+      prevColumns = prevColumns.map((column) => ({
+        ...column,
+        cards: column.cards.filter((card) => card.id !== updatedCard.id),
+      }));
+
+      // Lägg till kortet i den nya valda kolumnen
+      return prevColumns.map((column) => {
+        if (column.name === updatedCard.selectedColumn) {
           return {
             ...column,
-            cards: column.cards.map((card) =>
-              card.id === updatedCard.id ? updatedCard : card
-            ),
+            cards: [
+              ...column.cards,
+              { ...updatedCard, columnName: updatedCard.selectedColumn },
+            ],
           };
         }
         return column;
-      })
-    );
-  }
+      });
+    });
+  };
 
   return (
     <div className="board">
@@ -94,6 +100,7 @@ const Board = () => {
           name={column.name}
           cards={column.cards}
           addCard={addCard}
+          columns={columns}
           setColumns={setColumns}
           onUpdate={handleCardUpdate}
           handleRemoveCard={handleRemoveCard}

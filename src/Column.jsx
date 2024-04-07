@@ -44,6 +44,7 @@ function Column({
           card={selectedCard}
           onClose={handleCloseModal}
           columnName={name}
+          columns={columns}
           onUpdate={onUpdate}
           onRemoveCard={(cardId) => handleRemoveCard(cardId, name)}
         />

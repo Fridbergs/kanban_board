@@ -1,9 +1,17 @@
 import React, { useState } from "react";
 
-function ReadViewModal({ card, onClose, onUpdate, onRemoveCard, columnName }) {
+function ReadViewModal({
+  card,
+  onClose,
+  onUpdate,
+  onRemoveCard,
+  columnName,
+  columns,
+}) {
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(card.title);
   const [content, setContent] = useState(card.content);
+  const [selectedColumn, setSelectedColumn] = useState(card.columnName);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -15,6 +23,7 @@ function ReadViewModal({ card, onClose, onUpdate, onRemoveCard, columnName }) {
       title,
       content,
       columnName,
+      selectedColumn,
     };
     onUpdate(updatedCard);
     setIsEditing(false);
@@ -35,7 +44,17 @@ function ReadViewModal({ card, onClose, onUpdate, onRemoveCard, columnName }) {
             <textarea
               value={content}
               onChange={(e) => setContent(e.target.value)}
-            />
+            />{" "}
+            <select
+              value={selectedColumn}
+              onChange={(e) => setSelectedColumn(e.target.value)}
+            >
+              {columns.map((column) => (
+                <option key={column.name} value={column.name}>
+                  {column.name}
+                </option>
+              ))}
+            </select>
             <button onClick={handleSaveClick}>Spara Ändringar</button>
           </div>
         ) : (
