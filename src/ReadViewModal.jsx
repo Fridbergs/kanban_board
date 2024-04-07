@@ -18,6 +18,7 @@ function ReadViewModal({ card, onClose, onUpdate, onRemoveCard, columnName }) {
     };
     onUpdate(updatedCard);
     setIsEditing(false);
+    onClose(); // Stäng modalen efter att kortet har tagits bort
   };
 
   const handleRemoveClick = () => {

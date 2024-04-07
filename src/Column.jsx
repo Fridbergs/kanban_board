@@ -24,12 +24,6 @@ function Column({
     setSelectedCard(null);
   };
 
-  const handleSaveCard = (card, selectedColumn) => {
-    console.log("Saving card in column:", selectedColumn, "Card data:", card);
-    addCard(selectedColumn || name, card.title, card.content);
-    setShowCardModal(false); // Antagligen ska detta vara en annan modal, för att lägga till/redigera kort?
-  };
-
   return (
     <div className="column">
       <h2>
