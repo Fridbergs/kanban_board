@@ -27,12 +27,12 @@ function ReadViewModal({
     };
     onUpdate(updatedCard);
     setIsEditing(false);
-    onClose(); // Stäng modalen efter att kortet har tagits bort
+    onClose();
   };
 
   const handleRemoveClick = () => {
     onRemoveCard(card.id);
-    onClose(); // Stäng modalen efter att kortet har tagits bort
+    onClose();
   };
 
   return (
