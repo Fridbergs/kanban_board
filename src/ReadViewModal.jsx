@@ -22,8 +22,7 @@ function ReadViewModal({
       id: card.id,
       title,
       content,
-      columnName,
-      selectedColumn,
+      columnName: selectedColumn,
     };
     onUpdate(updatedCard);
     setIsEditing(false);

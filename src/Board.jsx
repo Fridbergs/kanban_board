@@ -69,47 +69,22 @@ const Board = () => {
 
   const handleCardUpdate = (updatedCard) => {
     setColumns((prevColumns) => {
-      // Om kolumnen inte har ändrats, uppdatera bara kortet inom dess nuvarande kolumn
-      if (updatedCard.selectedColumn === updatedCard.columnName) {
-        return prevColumns.map((column) => {
-          if (column.name === updatedCard.columnName) {
-            return {
-              ...column,
-              cards: column.cards.map((card) =>
-                card.id === updatedCard.id ? { ...updatedCard } : card
-              ),
-            };
-          }
-          return column;
-        });
-      }
-      // Om kolumnen har ändrats, flytta kortet till den nya kolumnen
-      else {
-        // Först ta bort kortet från dess nuvarande kolumn
-        let newColumns = prevColumns.map((column) => {
-          if (column.name === updatedCard.columnName) {
-            return {
-              ...column,
-              cards: column.cards.filter((card) => card.id !== updatedCard.id),
-            };
-          }
-          return column;
-        });
+      // Ta först bort kortet från dess nuvarande kolumn
+      let newColumns = prevColumns.map((column) => ({
+        ...column,
+        cards: column.cards.filter((card) => card.id !== updatedCard.id),
+      }));
 
-        // Sedan lägg till kortet i den nya kolumnen
-        return newColumns.map((column) => {
-          if (column.name === updatedCard.selectedColumn) {
-            return {
-              ...column,
-              cards: [
-                ...column.cards,
-                { ...updatedCard, columnName: updatedCard.selectedColumn },
-              ],
-            };
-          }
-          return column;
-        });
-      }
+      // Lägg sedan till kortet i den nya kolumnen
+      return newColumns.map((column) => {
+        if (column.name === updatedCard.columnName) {
+          return {
+            ...column,
+            cards: [...column.cards, updatedCard],
+          };
+        }
+        return column;
+      });
     });
   };
 
