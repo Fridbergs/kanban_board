@@ -53,6 +53,7 @@ const Board = () => {
   };
 
   const handleRemoveCard = (cardId, columnName) => {
+    console.log(`Försöker ta bort kort ${cardId} från ${columnName}`);
     setColumns((prevColumns) =>
       prevColumns.map((column) => {
         if (column.name === columnName) {
@@ -76,7 +77,7 @@ const Board = () => {
           cards={column.cards}
           addCard={addCard}
           setColumns={setColumns}
-          onRemoveCard={handleRemoveCard}
+          handleRemoveCard={handleRemoveCard}
         />
       ))}
     </div>

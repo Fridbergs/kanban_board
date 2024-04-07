@@ -10,7 +10,6 @@ function Column({
   handleRemoveCard,
   setColumns,
   columns,
-  onRemoveCard,
 }) {
   const [selectedCard, setSelectedCard] = useState(null);
   const [showCardModal, setShowCardModal] = useState(false);
@@ -68,7 +67,7 @@ function Column({
           card={selectedCard}
           onClose={handleCloseModal}
           onUpdate={handleCardUpdate}
-          onRemoveCard={(cardId) => onRemove(cardId, name)}
+          onRemoveCard={(cardId) => handleRemoveCard(cardId, name)}
         />
       )}
     </div>
