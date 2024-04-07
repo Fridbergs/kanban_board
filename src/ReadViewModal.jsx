@@ -1,12 +1,6 @@
 import React, { useState } from "react";
 
-function ReadViewModal({
-  card,
-  onClose,
-  onUpdate,
-  handleRemoveCard,
-  onRemoveCard,
-}) {
+function ReadViewModal({ card, onClose, onUpdate, onRemoveCard, columnName }) {
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(card.title);
   const [content, setContent] = useState(card.content);
@@ -16,7 +10,12 @@ function ReadViewModal({
   };
 
   const handleSaveClick = () => {
-    const updatedCard = { id: card.id, title, content };
+    const updatedCard = {
+      id: card.id,
+      title,
+      content,
+      columnName,
+    };
     onUpdate(updatedCard);
     setIsEditing(false);
   };

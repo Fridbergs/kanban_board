@@ -24,23 +24,6 @@ function Column({
     setSelectedCard(null);
   };
 
-  function handleCardUpdate(updatedCard) {
-    console.log("Uppdaterat kort:", updatedCard);
-    setColumns((prevColumns) =>
-      prevColumns.map((column) => {
-        if (column.name === updatedCard.columnName) {
-          return {
-            ...column,
-            cards: column.cards.map((card) =>
-              card.id === updatedCard.id ? updatedCard : card
-            ),
-          };
-        }
-        return column;
-      })
-    );
-  }
-
   const handleSaveCard = (card, selectedColumn) => {
     console.log("Saving card in column:", selectedColumn, "Card data:", card);
     addCard(selectedColumn || name, card.title, card.content);
@@ -66,7 +49,8 @@ function Column({
         <ReadViewModal
           card={selectedCard}
           onClose={handleCloseModal}
-          onUpdate={handleCardUpdate}
+          columnName={name}
+          onUpdate={onUpdate}
           onRemoveCard={(cardId) => handleRemoveCard(cardId, name)}
         />
       )}

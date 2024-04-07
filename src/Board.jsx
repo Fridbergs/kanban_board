@@ -67,6 +67,24 @@ const Board = () => {
     );
   };
 
+  function handleCardUpdate(updatedCard, columnName) {
+    console.log("Uppdaterat kort:", updatedCard);
+    console.log("Kolumnnamn:", updatedCard.columnName);
+    setColumns((prevColumns) =>
+      prevColumns.map((column) => {
+        if (column.name === updatedCard.columnName) {
+          return {
+            ...column,
+            cards: column.cards.map((card) =>
+              card.id === updatedCard.id ? updatedCard : card
+            ),
+          };
+        }
+        return column;
+      })
+    );
+  }
+
   return (
     <div className="board">
       <AddCard addCard={addCard} columns={columns} />
@@ -77,6 +95,7 @@ const Board = () => {
           cards={column.cards}
           addCard={addCard}
           setColumns={setColumns}
+          onUpdate={handleCardUpdate}
           handleRemoveCard={handleRemoveCard}
         />
       ))}
