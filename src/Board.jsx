@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import AddCard from "./AddCard";
 import Column from "./Column";
+import { useTheme } from "./ThemeContext"; //
 
 const Board = () => {
   const { columnName } = useParams();
+  const { backgroundColor } = useTheme();
   function generateId() {
     return Math.random().toString(36).substr(2, 9);
   }
@@ -89,7 +91,7 @@ const Board = () => {
   };
 
   return (
-    <div className="board">
+    <div className="board" style={{ backgroundColor: backgroundColor }}>
       <AddCard addCard={addCard} columns={columns} />
       {filteredColumns.map((column, index) => (
         <Column
